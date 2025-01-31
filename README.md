@@ -161,13 +161,3 @@ php artisan storage:link
 ```
 php artisan test
 ```
-
-## Improvements that could be done with more time
-
-- Could've dade the components more reusable so I didn’t have to repeat myself and made it more accessible
-- Could've added roles and permissions to allow access to users with certain permissions
-- Could've done a headless approach using backend as API and frontend React
-- Could've added cron jobs to retrieve images from azure every half an hour to update local storage
-- Ability to support more sizes for imges that are less than 1024 for responsive images, therefore improving wider performance
-- Coudl've added a loading state whilst images are loading, which required a lot of frontend work
-- On image preview, I could've added zoom functionality for UX

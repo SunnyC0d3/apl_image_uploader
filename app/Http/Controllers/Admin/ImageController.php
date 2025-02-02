@@ -17,6 +17,11 @@ class ImageController
         $this->handleImages = $handleImages;
     }
 
+    /**
+     * Show the image upload form.
+     *
+     * @return \Illuminate\View\View|\Illuminate\Http\JsonResponse
+     */
     public function create()
     {
         try {
@@ -27,6 +32,12 @@ class ImageController
         }
     }
 
+    /**
+     * Handle image upload and store it.
+     *
+     * @param ImageUploadRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
     public function store(ImageUploadRequest $request)
     {
         $request->validated();
@@ -41,6 +52,12 @@ class ImageController
         }
     }
 
+    /**
+     * Show the image edit form.
+     *
+     * @param string $filename
+     * @return \Illuminate\View\View|\Illuminate\Http\JsonResponse
+     */
     public function edit(string $filename)
     {
         try {
@@ -52,6 +69,13 @@ class ImageController
         }
     }
 
+    /**
+     * Update an existing image.
+     *
+     * @param ImageUpdateRequest $request
+     * @param string $filename
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
     public function update(ImageUpdateRequest $request, string $filename)
     {
         $request->validated();
@@ -68,6 +92,12 @@ class ImageController
         }
     }
 
+    /**
+     * Delete an image.
+     *
+     * @param string $filename
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
     public function destroy(string $filename)
     {
         try {

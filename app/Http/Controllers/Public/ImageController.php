@@ -15,6 +15,12 @@ class ImageController
         $this->handleImages = $handleImages;
     }
 
+    /**
+     * Show an image by filename.
+     *
+     * @param string $filename
+     * @return \Illuminate\View\View|\Illuminate\Http\JsonResponse
+     */
     public function show(string $filename)
     {
         try {

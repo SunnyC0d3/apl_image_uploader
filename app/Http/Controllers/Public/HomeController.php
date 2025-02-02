@@ -15,6 +15,11 @@ class HomeController
         $this->handleImages = $handleImages;
     }
 
+    /**
+     * Show the homepage with images.
+     *
+     * @return \Illuminate\View\View|\Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         try {

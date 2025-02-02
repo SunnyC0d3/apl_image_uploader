@@ -161,3 +161,23 @@ php artisan storage:link
 ```
 php artisan test
 ```
+
+## Design Decisions
+
+The application was an enjoyable build that allowed me to focus on the core task: implementing basic CRUD operations, but with a unique twist. Instead of relying on a traditional database to retrieve stored local images, the app retrieves images directly from the storage folder provided by Laravel. Additionally, it includes the flexibility to switch to cloud storage (Azure Blob Container) based on the current storage mode, where images are also uploaded.
+
+For this task, I chose Laravel 11 due to my familiarity with the framework and its extensive range of plugins, which made integration and setup straightforward. This allowed me to focus more on the problem at hand without worrying about complex framework configurations.
+
+The design approach for this project was relatively simple. Since there wasn't a need for extensive database normalization, I was able to shift my attention to the user interface and overall functionality of the app. Although the design is simple, it prioritizes a smooth and intuitive user experience. Users can quickly navigate the application, upload images, and view their gallery on the homepage. The dashboard also provides an easy way to switch between local and cloud storage, as well as manage images through straightforward CRUD operations.
+
+Throughout the development of the application, I focused on maintaining a SOLID and clean codebase, adhering to Laravel best practices. However, as always, there was a learning curve. I also added useful features such as seeders, unit testing, and comments to make the app easier to test and understand for future developers.
+
+There are a few areas where the project could have been improved:
+
+- The components could have been made more reusable to reduce repetition and improve accessibility.
+- Implementing roles and permissions would have added more security and control over user access.
+- A headless approach, using a backend API and a frontend built with React, could have been a more scalable solution.
+- Implementing cron jobs to sync images from Azure to local storage every 30 minutes would ensure more reliable image management.
+- Supporting additional image sizes (under 1024px) for responsive images could have enhanced performance, particularly for mobile devices.
+- Adding a loading state while images are being uploaded would improve the frontend experience.
+- Image preview functionality could have been enhanced by adding zoom capabilities for better user interaction.

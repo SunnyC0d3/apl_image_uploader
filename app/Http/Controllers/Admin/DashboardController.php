@@ -16,12 +16,17 @@ class DashboardController
         $this->handleImages = $handleImages;
     }
 
+    /**
+     * Display the dashboard with storage mode and images.
+     *
+     * @return \Illuminate\View\View|\Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         try {
             $storageMode = StorageSetting::getMode();
             $images = $this->handleImages->images();
-    
+
             return view('dashboard', compact('storageMode', 'images'));
         } catch (Exception $e) {
             Log::error('Error: ' . $e->getMessage());

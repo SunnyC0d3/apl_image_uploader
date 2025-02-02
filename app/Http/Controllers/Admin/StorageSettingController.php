@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Log;
 
 class StorageSettingController
 {
+    /**
+     * Update storage mode.
+     *
+     * @param UpdateStorageSettingRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(UpdateStorageSettingRequest $request)
     {
         $request->validated();

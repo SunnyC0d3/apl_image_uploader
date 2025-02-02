@@ -17,12 +17,18 @@ class HandleImages
     private $storageMode;
     private $imageManager;
 
+    /**
+     * Constructor to initialize storage mode and ImageManager instance.
+     */
     public function __construct(ImageManager $imageManager)
     {
         $this->storageMode = StorageSetting::getMode();
         $this->imageManager = $imageManager;
     }
 
+    /**
+     * Retrieve images based on the configured storage mode.
+     */
     public function images()
     {
         if ($this->storageMode === 'local') {
@@ -32,6 +38,11 @@ class HandleImages
         }
     }
 
+    /**
+     * Upload an image to the configured storage.
+     *
+     * @param object $file Uploaded file instance.
+     */
     public function upload(object $file)
     {
         $filename = time() . '.' . $file->getClientOriginalExtension();
@@ -57,6 +68,12 @@ class HandleImages
         ]);
     }
 
+    /**
+     * Update an existing image in storage.
+     *
+     * @param object $file New uploaded file instance.
+     * @param string $oldFilename Existing filename to replace.
+     */
     public function update(object $file, string $oldFilename)
     {
         $filename = time() . '.' . $file->getClientOriginalExtension();
@@ -94,6 +111,11 @@ class HandleImages
         }
     }
 
+    /**
+     * Delete an image from storage.
+     *
+     * @param string $filename Name of the file to be deleted.
+     */
     public function delete(string $filename)
     {
         if ($this->storageMode === 'azure') {
@@ -103,6 +125,12 @@ class HandleImages
         }
     }
 
+    /**
+     * Retrieve the URL of a stored image.
+     *
+     * @param string $filename Image filename.
+     * @throws NotFoundHttpException If the image does not exist.
+     */
     public function getImageUrl(string $filename)
     {
         if ($this->storageMode === 'local') {
@@ -128,11 +156,17 @@ class HandleImages
         return throw new NotFoundHttpException('Image not found.');
     }
 
+    /**
+     * Format image output details to jpg/png.
+     */
     private function fileFormat(object $file, ImageInterface $image)
     {
         return $file->getClientOriginalExtension() === 'jpg' || $file->getClientOriginalExtension() === 'jpeg' ? $image->toJpeg(90) : $image->toPng(indexed: true);
     }
 
+    /**
+     * Format image output details.
+     */
     private function formatImageOutput(string $filename, string $path)
     {
         if ($this->storageMode === 'local') {
@@ -156,6 +190,9 @@ class HandleImages
         ];
     }
 
+    /**
+     * Ensure uploaded image dimensions do not exceed 1024x1024.
+     */
     private function checkImageDimensions(ImageInterface $image)
     {
         if ($image->width() > 1024 || $image->height() > 1024) {
@@ -163,6 +200,9 @@ class HandleImages
         }
     }
 
+    /**
+     * Retrieve paginated images.
+     */
     private function getPaginatedImages($images)
     {
         $currentPage = request()->get('page', 1);
@@ -184,6 +224,11 @@ class HandleImages
         return $paginator;
     }
 
+    /**
+     * Retrieve images stored locally and paginate the results.
+     *
+     * @return LengthAwarePaginator
+     */
     private function getLocalImages()
     {
         $dir = storage_path('app/public/uploads');
@@ -202,6 +247,11 @@ class HandleImages
         );
     }
 
+    /**
+     * Retrieve images stored on Azure and paginate the results.
+     *
+     * @return LengthAwarePaginator
+     */
     private function getAzureImages()
     {
         $azureDisk = Storage::disk('azure');
